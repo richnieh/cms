@@ -14,9 +14,9 @@ Route::get('/app', function(){
     return view('layouts/app');
 });
 
-Route::get('/create', function(){
-    return view('create');
-});
+//Route::get('/create', function(){
+//    return view('create');
+//});
 
 
 
