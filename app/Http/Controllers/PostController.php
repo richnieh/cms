@@ -13,6 +13,8 @@ class PostController extends Controller
     public function index()
     {
         //
+        $posts = Post::all();
+        return view('index', compact('posts'));
     }
 
     /**
@@ -31,6 +33,8 @@ class PostController extends Controller
     {
         //
         Post::create($request->all());
+
+        return redirect('/posts');
     }
 
     /**
@@ -38,7 +42,9 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // this returns one specific row using id
+        $post = Post::findOrFail($id);
+        return view('show', compact('post'));
     }
 
     /**
@@ -47,6 +53,9 @@ class PostController extends Controller
     public function edit(string $id)
     {
         //
+        $post = Post::findOrFail($id);
+
+        return view('edit', compact('post'));
     }
 
     /**
@@ -54,7 +63,10 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+        return redirect('posts');
     }
 
     /**
@@ -63,5 +75,7 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         //
+        Post::whereId($id)->delete();
+        return redirect('posts');
     }
 }
